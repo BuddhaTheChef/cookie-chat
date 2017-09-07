@@ -9,11 +9,17 @@
     <div class="main-container">
       <h1> DevMountain Chat Room </h1>
       <form ng-submit="postMessage(message)">
-        <input class="form-control text-box" type="text" ng-model="message" placeholder="Message">
+        <input class="form-control text-box" type="text" ng-model="message" placeholder="Type Message">
+
       </form>
+      <input class="form-control text-box" type="text" ng-model="searchTerm.message" placeholder="Search For Message...">
+       <select class="order"  ng-model="sortDirection">
+         <option value="-createdAt">Descending</option>
+         <option value="+createdAt">Ascending</option>
+       </select>
       <div class="messages-container">
-        <p ng-repeat="message in messages ">
-          {{message.message}} </p>
+        <p ng-repeat="message in messages | filter : searchTerm | orderBy: sortDirection ">
+          {{message.message}} <br />{{ message.createdAt | date : "short"}}</p>
       </div>
     </div>
 
